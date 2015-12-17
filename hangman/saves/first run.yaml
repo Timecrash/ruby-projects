@@ -1,0 +1,17 @@
+--- !ruby/object:Hangman
+secret_word: HABERDASHERY
+word_display:
+- H
+- _
+- _
+- _
+- _
+- _
+- _
+- _
+- H
+- _
+- _
+- _
+guessed_letters: []
+turn: 0
