@@ -19,5 +19,5 @@ def fibs_rec(n)
 	end
 end
 
-fibs(13) 		# => 233
+fibs(13) 	# => 233
 fibs_rec(13)	# => 233
