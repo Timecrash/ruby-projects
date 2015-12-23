@@ -7,3 +7,4 @@ Projects include:
 - Recursive Fibonacci (via TOP's Recursion project) (http://www.theodinproject.com/ruby-programming/recursion)
 - Merge Sort (as above)
 - Searching Binary Trees (via TOP's Data Structures project) (http://www.theodinproject.com/ruby-programming/data-structures-and-algorithms)
+- Knight's Traversal (as above)
