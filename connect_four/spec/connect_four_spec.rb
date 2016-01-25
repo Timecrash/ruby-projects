@@ -50,7 +50,7 @@ describe Board do
           [" "," "," ","B"," "," "," "],
           [" "," "," ","R"," "," "," "],
           [" "," "," ","B"," "," "," "] ]
-        expect(board.get_empty_row(3)).to eq -4
+        expect(board.get_empty_row(3)).to eq 3
         board.update_board(-4, 3, "R")
         expect(board.board[3][3]).to eq "R"
       end
