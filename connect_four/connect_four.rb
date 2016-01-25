@@ -5,9 +5,29 @@ class ConnectFour
     @board = Board.new
     @red_player = Player.new(red_name, "R")
     @black_player = Player.new(black_name, "B")
+    #play
   end
 
-  #Array should have seven values, assuming the cell checked on is in the center.
+  def play
+    initial_display
+    loop do |turn|
+      puts "Turn #{turn}"
+      [red_player,black_player].each do |player|
+        col = player.get_input
+        row = board.get_empty_row(col)
+        board.update_board(row, col, player.color)
+        board.display_board
+
+      end
+    end
+  end
+
+  #private
+  def initial_display
+    puts "Connect Four!"
+    board.display_board
+  end
+
   def has_won?(array, color)
     x = 0
     until x > 3 do
@@ -36,38 +56,47 @@ class Board
   attr_accessor :board
 
   def initialize
-    @board = Array.new(7, Array.new(7, "-"))
+    @board = Array.new(7, Array.new(7, " "))
   end
 
   def display_board
+    puts "\n0|1|2|3|4|5|6"
+    puts "-------------"
     board.each do |row|
       puts row.join("|")
+      puts "-|-|-|-|-|-|-"
     end
   end
 
-  def update_board(col, color)
-    row = -1
-
-    until row < -board.length
-      board[row][col] == "-" ? board[row][col] = color : row -= 1
-    end
-
-    if row < -
-
-    if !is_full?(col)
+  def update_board(row, col, color)
+    if row != nil
       board[row][col] = color
     else
       puts "Invalid; the column is full."
     end
   end
 
-  def is_full?(col)
+  def check_for_win(row, col, color)
+
+
+  def is_full?
+    board.each do |row|
+      return true if row.none?(" ")
+    end
+    return false
+  end
+
+  #private
+  def get_empty_row(col)
     row = -1
     until row < -board.length
-      return false if board[row][col] == "-"
-      row -= 1
+      if board[row][col] == " "
+        return row
+      else
+        row -= 1
+      end
     end
-    return true
+    return nil
   end
 end
 
@@ -80,9 +109,9 @@ class Player
   end
 
   def get_input
-    col = nil
+    col = -1
     until col.between?(0, 6)
-      print "Please input a column number:"
+      print "#{name}, please input a column number:"
       col = gets.chomp.to_i
     end
     return col
