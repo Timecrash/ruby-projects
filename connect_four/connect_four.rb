@@ -8,8 +8,6 @@ class ConnectFour
     @board = Board.new
     @red_player = Player.new(red_name, "R")
     @black_player = Player.new(black_name, "B")
-
-    play
   end
 
   def play
@@ -41,7 +39,6 @@ class ConnectFour
     puts "Game over!"
   end
 
-  private
   def has_won?(array, color)
     x = 0
     until x > 3 do
@@ -65,5 +62,3 @@ class ConnectFour
     return false
   end
 end
-
-ConnectFour.new("Reimu","Marisa")

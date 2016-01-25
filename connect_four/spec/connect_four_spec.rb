@@ -63,7 +63,7 @@ describe Board do
           [" "," "," ","B"," "," "," "],
           [" "," "," ","R"," "," "," "],
           [" "," "," ","B"," "," "," "] ]
-        expect{board.update_board(nil, 3, "R")}.not_to change { board.board }
+        expect{ board.update_board(nil, 3, "R") }.not_to change { board.board }
       end
     end
   end

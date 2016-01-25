@@ -46,7 +46,6 @@ class Board
     return false
   end
 
-  private
   def horizontal_check(row, col, color)
     array = []
     x = col - 3
