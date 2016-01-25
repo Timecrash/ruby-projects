@@ -34,13 +34,13 @@ end
 describe Board do
   let(:board) { Board.new }
   describe ".update_board" do
-    context "when column 3 is empty" do
+    context "when column 3 is empty," do
       it "updates column 3" do
         board.update_board(-1, 3, "R")
         expect(board.board[-1][3]).to eq "R"
       end
     end
-    context "when column 3 has values, but isn't full" do
+    context "when column 3 has values, but isn't full," do
       it "updates column 3 at the next available space" do
         board.board = [
           [" "," "," "," "," "," "," "],
@@ -55,7 +55,7 @@ describe Board do
         expect(board.board[3][3]).to eq "R"
       end
     end
-    context "when column 3 is full" do
+    context "when column 3 is full," do
       it "does not update and returns nil" do
         board.board = [
           [" "," "," ","R"," "," "," "],
@@ -73,26 +73,31 @@ describe Board do
     let(:default_check) { board.check_for_win(3, 3, "B") }
     let(:edge_check) { board.check_for_win(0, 0, "B") }
 
-    context "when the board is empty" do
+    context "when the board is empty," do
       it "returns a 2D array of horizontal, vertical, and diagonal values" do
         expect(default_check).to have(4).things
       end
     end
-    context "when the board has values" do
-      board.board = [
-        ["B"," "," "," "," "," "," "],
-        ["B"," "," "," "," "," "," "],
-        ["B"," "," "," "," "," "," "],
-        ["R"," ","R","B","B","B","B"],
-        ["B"," ","B","B","B","R","R"],
-        ["R"," ","B","R","R","R","B"],
-        ["R"," ","R","B","R","R","B"] ]
-      it "will have an empty array if it can't check an edge" do
-        expect(edge_check[3]).to eq []
+    context "when the board has values," do
+      before do
+        board.board = [
+          ["B"," "," "," "," "," "," "],
+          ["B"," "," "," "," "," "," "],
+          ["B"," "," "," "," "," "," "],
+          ["R"," ","R","B","B","B","B"],
+          ["B"," ","R","B","B","R","R"],
+          ["R"," ","B","R","R","B","B"],
+          ["R"," ","R","B","R","R","R"] ]
       end
-      it "will only fill the array with valid "
-
-
+      it "will have only one value if it can't check an edge" do
+        expect(edge_check[3]).to eq ["B"]
+      end
+      it "will only fill the array with valid values" do
+        expect(default_check[1]).to have(4).things
+        expect(default_check[2]).to have(2).things
+        expect(default_check[3]).to have(3).things
+        expect(default_check[4]).to have(1).things
+      end
     end
   end
 end

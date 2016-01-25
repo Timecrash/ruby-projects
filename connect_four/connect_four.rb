@@ -77,7 +77,13 @@ class Board
   end
 
   def check_for_win(row, col, color)
-
+    test_array = []
+    test_array.push(horizontal_check(row, col, color),
+                    vertical_check(row, col, color),
+                    r_diagonal_check(row, col, color),
+                    l_diagonal_check(row, col, color))
+    return test_array
+  end
 
   def is_full?
     board.each do |row|
@@ -87,6 +93,58 @@ class Board
   end
 
   #private
+  def horizontal_check(row, col, color)
+    array = []
+    x = row - 3
+    until x > 6 do
+      if x.between?(0,6)
+        array << board[x,col] if board[x,col] == color
+      end
+      x += 1
+    end
+    return array
+  end
+
+  def vertical_check(row, col, color)
+    array = []
+    y = col - 3
+    until y > 6 do
+      if y.between?(0,6)
+        array << board[row,y] if board[row,y] == color
+      end
+      y += 1
+    end
+    return array
+  end
+
+  def r_diagonal_check(row, col, color)
+    array = []
+    x = row - 3
+    y = row - 3
+    until y > 6 || array.length > 4 do
+      if x.between?(0,6) && y.between?(0,6)
+        array << board[x,y] if board[x,y] == color
+      end
+      x += 1
+      y += 1
+    end
+    return array
+  end
+
+  def l_diagonal_check(row, col, color)
+    array = []
+    x = row + 3
+    y = row - 3
+    until y > 6 || array.length > 4 do
+      if x.between?(0,6) && y.between?(0,6)
+        array << board[x,y] if board[x,y] == color
+      end
+      x -= 1
+      y += 1
+    end
+    return array
+  end
+
   def get_empty_row(col)
     row = -1
     until row < -board.length
