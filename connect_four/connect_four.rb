@@ -5,28 +5,40 @@ class ConnectFour
     @board = Board.new
     @red_player = Player.new(red_name, "R")
     @black_player = Player.new(black_name, "B")
+
     play
   end
 
   def play
     puts "Connect Four!"
     board.display_board
-    loop do |turn|
-      puts "Turn #{turn}"
-      [red_player,black_player].each do |player|
-        col = player.get_input
-        row = board.get_empty_row(col)
-        board.update_board(row, col, player.color)
-        board.display_board
-        test_array = board.check_for_win(row, col, player.color)
-        if has_won?(test_array, player.color)
-          puts "#{player.name} has won!"
-          break
+    catch :playing do
+      loop do
+        [red_player,black_player].each do |player|
+          col = player.get_input
+          row = board.get_empty_row(col)
+          board.update_board(row, col, player.color)
+          board.display_board
+          if row != nil
+            test_array = board.check_for_win(row, col, player.color)
+            test_array.each do |test|
+              if has_won?(test, player.color)
+                puts "#{player.name} has won!"
+                throw :playing
+              end
+            end
+            if board.is_full?
+              puts "The board is full!"
+              throw :playing
+            end
+          end
         end
       end
     end
+    puts "Game over!"
   end
 
+  private
   def has_won?(array, color)
     x = 0
     until x > 3 do
@@ -55,7 +67,7 @@ class Board
   attr_accessor :board
 
   def initialize
-    @board = Array.new(7, Array.new(7, " "))
+    @board = Array.new(7) { Array.new(7, " ") }
   end
 
   def display_board
@@ -63,6 +75,7 @@ class Board
     board.each do |row|
       puts row.join("|")
     end
+    puts "-------------"
   end
 
   def update_board(row, col, color)
@@ -71,6 +84,15 @@ class Board
     else
       puts "Invalid; the column is full."
     end
+  end
+
+  def get_empty_row(col)
+    row = 6
+    until row < 0
+      return row if board[row][col] == " "
+      row -= 1
+    end
+    return nil
   end
 
   def check_for_win(row, col, color)
@@ -84,18 +106,18 @@ class Board
 
   def is_full?
     board.each do |row|
-      return true if row.none?(" ")
+      return true if row.none? { |val| val == " " }
     end
     return false
   end
 
-  #private
+  private
   def horizontal_check(row, col, color)
     array = []
     x = col - 3
     until x > 6 do
       if x.between?(0,6)
-        array << board[row][x] #if board[row, x] == color
+        array << board[row][x]
       end
       x += 1
     end
@@ -107,7 +129,7 @@ class Board
     y = row - 3
     until y > 6 do
       if y.between?(0,6)
-        array << board[y][col] #if board[y, col] == color
+        array << board[y][col]
       end
       y += 1
     end
@@ -120,7 +142,7 @@ class Board
     y = row - 3
     until y > 6 || x > 6 do
       if x.between?(0,6) && y.between?(0,6)
-        array << board[y][x] #if board[y, x] == color
+        array << board[y][x]
       end
       x += 1
       y += 1
@@ -134,24 +156,12 @@ class Board
     y = row - 3
     until y > 6 || x < 0 do
       if x.between?(0,6) && y.between?(0,6)
-        array << board[y][x] #if board[y, x] == color
+        array << board[y][x]
       end
       x -= 1
       y += 1
     end
     return array
-  end
-
-  def get_empty_row(col)
-    row = -1
-    until row < -board.length
-      if board[row][col] == " "
-        return row
-      else
-        row -= 1
-      end
-    end
-    return nil
   end
 end
 
@@ -166,9 +176,11 @@ class Player
   def get_input
     col = -1
     until col.between?(0, 6)
-      print "#{name}, please input a column number:"
+      print "#{name}, please input a column number: "
       col = gets.chomp.to_i
     end
     return col
   end
 end
+
+ConnectFour.new("Reimu","Marisa")
