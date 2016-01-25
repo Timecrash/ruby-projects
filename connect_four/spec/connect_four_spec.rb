@@ -72,10 +72,13 @@ describe Board do
   describe ".check_for_win" do
     let(:default_check) { board.check_for_win(3, 3, "B") }
     let(:edge_check) { board.check_for_win(0, 0, "B") }
+    let(:off_center_check) { board.check_for_win(2, 0, "B") }
 
     context "when the board is empty," do
       it "returns a 2D array of horizontal, vertical, and diagonal values" do
-        expect(default_check).to have(4).things
+        expect(default_check).to be_instance_of Array
+        expect(edge_check).to be_instance_of Array
+        expect(off_center_check).to be_instance_of Array
       end
     end
     context "when the board has values," do
@@ -89,14 +92,19 @@ describe Board do
           ["R"," ","B","R","R","B","B"],
           ["R"," ","R","B","R","R","R"] ]
       end
-      it "will have only one value if it can't check an edge" do
-        expect(edge_check[3]).to eq ["B"]
+      it "will give only partial arrays if it fully can't check an edge" do
+        expect(edge_check[3]).to match_array ["B"]
+        expect(off_center_check[2]).to match_array ["B"," ","R","R","R"]
+        expect(off_center_check[3]).to match_array [" "," ","B"]
+      end
+      it "gives seven values if in a corner" do
+        expect(edge_check[2]).to match_array ["B"," "," ","B","B","B","R"]
       end
       it "will only fill the array with valid values" do
-        expect(default_check[1]).to have(4).things
-        expect(default_check[2]).to have(2).things
-        expect(default_check[3]).to have(3).things
-        expect(default_check[4]).to have(1).things
+        expect(default_check[0]).to match_array ["R"," ","R","B","B","B","B"]
+        expect(default_check[1]).to match_array [" "," "," ","B","B","R","B"]
+        expect(default_check[2]).to match_array ["B"," "," ","B","B","B","R"]
+        expect(default_check[3]).to match_array [" "," "," ","B","R"," ","R"]
       end
     end
   end

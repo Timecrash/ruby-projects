@@ -5,11 +5,12 @@ class ConnectFour
     @board = Board.new
     @red_player = Player.new(red_name, "R")
     @black_player = Player.new(black_name, "B")
-    #play
+    play
   end
 
   def play
-    initial_display
+    puts "Connect Four!"
+    board.display_board
     loop do |turn|
       puts "Turn #{turn}"
       [red_player,black_player].each do |player|
@@ -17,15 +18,13 @@ class ConnectFour
         row = board.get_empty_row(col)
         board.update_board(row, col, player.color)
         board.display_board
-
+        test_array = board.check_for_win(row, col, player.color)
+        if has_won?(test_array, player.color)
+          puts "#{player.name} has won!"
+          break
+        end
       end
     end
-  end
-
-  #private
-  def initial_display
-    puts "Connect Four!"
-    board.display_board
   end
 
   def has_won?(array, color)
@@ -61,10 +60,8 @@ class Board
 
   def display_board
     puts "\n0|1|2|3|4|5|6"
-    puts "-------------"
     board.each do |row|
       puts row.join("|")
-      puts "-|-|-|-|-|-|-"
     end
   end
 
@@ -95,10 +92,10 @@ class Board
   #private
   def horizontal_check(row, col, color)
     array = []
-    x = row - 3
+    x = col - 3
     until x > 6 do
       if x.between?(0,6)
-        array << board[x,col] if board[x,col] == color
+        array << board[row][x] #if board[row, x] == color
       end
       x += 1
     end
@@ -107,10 +104,10 @@ class Board
 
   def vertical_check(row, col, color)
     array = []
-    y = col - 3
+    y = row - 3
     until y > 6 do
       if y.between?(0,6)
-        array << board[row,y] if board[row,y] == color
+        array << board[y][col] #if board[y, col] == color
       end
       y += 1
     end
@@ -119,11 +116,11 @@ class Board
 
   def r_diagonal_check(row, col, color)
     array = []
-    x = row - 3
+    x = col - 3
     y = row - 3
-    until y > 6 || array.length > 4 do
+    until y > 6 || x > 6 do
       if x.between?(0,6) && y.between?(0,6)
-        array << board[x,y] if board[x,y] == color
+        array << board[y][x] #if board[y, x] == color
       end
       x += 1
       y += 1
@@ -133,11 +130,11 @@ class Board
 
   def l_diagonal_check(row, col, color)
     array = []
-    x = row + 3
+    x = col + 3
     y = row - 3
-    until y > 6 || array.length > 4 do
+    until y > 6 || x < 0 do
       if x.between?(0,6) && y.between?(0,6)
-        array << board[x,y] if board[x,y] == color
+        array << board[y][x] #if board[y, x] == color
       end
       x -= 1
       y += 1
