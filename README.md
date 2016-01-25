@@ -8,3 +8,4 @@ Projects include:
 - Merge Sort (as above)
 - Searching Binary Trees (via TOP's Data Structures project) (http://www.theodinproject.com/ruby-programming/data-structures-and-algorithms)
 - Knight's Traversal (as above)
+- Connect Four (via TOP's Testing project) (http://www.theodinproject.com/ruby-programming/testing-ruby)
