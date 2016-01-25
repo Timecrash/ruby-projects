@@ -1,5 +1,3 @@
-require "spec_helper"
-
 describe ConnectFour do
   let(:game) { ConnectFour.new("Reimu", "Marisa") }
   describe ".initialize" do
