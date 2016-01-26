@@ -1,5 +1,5 @@
 # ruby-projects
-Considering the number the projects I've been doing for The Odin Project lately, I figured I'll just start making one master-repo for everything. This will be for Ruby and possibly Rails projects. I might move my existing Ruby projects into this distro.
+Considering the number the projects I've been doing for The Odin Project lately, I figured I'll just start making one master-repo for everything. This will be for the Ruby projects I've done via TOP. I might move my existing Ruby projects into this distro.
 
 Projects include:
 - Hangman (via TOP's Files and Serialization) (http://www.theodinproject.com/ruby-programming/file-i-o-and-serialization)
