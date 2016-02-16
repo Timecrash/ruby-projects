@@ -1,7 +1,14 @@
 # ruby-projects
-Considering the number the projects I've been doing for The Odin Project lately, I figured I'll just start making one master-repo for everything. This will be for the Ruby projects I've done via TOP. I might move my existing Ruby projects into this distro.
+A master distro for all the Ruby projects I did via The Odin Project.
 
 Projects include:
+- Caesar Cipher (via TOP's Ruby Building Blocks) (http://www.theodinproject.com/ruby-programming/building-blocks)
+- Stock Picker (as above)
+- Substrings (as above)
+- Bubble Sort (via TOP's Ruby Advanced Building Blocks) (http://www.theodinproject.com/ruby-programming/advanced-ruby-building-blocks)
+- Enumerable Methods (as above)
+- Mastermind (via TOP's Object Oriented Programming) (http://www.theodinproject.com/ruby-programming/oop)
+- Tic-Tac-Toe (as above)
 - Hangman (via TOP's Files and Serialization) (http://www.theodinproject.com/ruby-programming/file-i-o-and-serialization)
 - JumpStart MicroBlogger (via TOP's Ruby on the Web) (http://www.theodinproject.com/ruby-programming/ruby-on-the-web)
 - Recursive Fibonacci (via TOP's Recursion project) (http://www.theodinproject.com/ruby-programming/recursion)
